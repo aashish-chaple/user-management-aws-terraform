@@ -1,6 +1,6 @@
-# Cloud Web Application
+# Health Check RESTful API
 
-This is a simple cloud-based web application built using **Node.js** and **Express**. It provides essential API endpoints to ensure that the application is up and running. The application includes health check routes and other basic functionalities for cloud service readiness. It is designed to be scalable and deployable on cloud platforms.
+This is a simple HealthCheck REST API built using **Node.js** and **Express**. The health check API allows us to monitor the health of the application instance and alert us when something is not working as expected. The health check API prevents us from sending traffic to unhealthy application instances and automatically replace/repair them. It also helps us improve user experience by not routing their quests to unhealthy instances.
 
 ## Features
 - Health Check API (`/healthz`) to verify the health of the application.
@@ -9,16 +9,17 @@ This is a simple cloud-based web application built using **Node.js** and **Expre
 - Easy-to-extend architecture for additional routes and services.
 
 ## Technologies
-- **Node.js**: JavaScript runtime environment for server-side applications.
-- **Express.js**: Fast, unopinionated, minimalist web framework for Node.js.
-- **dotenv**: Module to load environment variables from a `.env` file.
+- **Node.js**: JavaScript runtime environment for server-side applications
+- **Express.js**: Used for routing
+- **PostgreSQL**: For Database
+- **Sequelize**: ORM
 
 ## Prerequisites
 Ensure that you have the following installed on your machine:
 - [Node.js](https://nodejs.org/) (v20.x or later)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
 - [Git](https://git-scm.com/)
-- Environment variables configured in `.env` file (such as `PORT`).
+- Environment variables configured in `.env` file (such as `PORT`, `HOST`, `DB_USER_NAME` etc).
 
 ## Setup Instructions
 
@@ -26,16 +27,18 @@ Ensure that you have the following installed on your machine:
 
 git clone https://github.com/cloudsheesh/webapp.git
 
+### 2. Change the Directory
+
 cd webapp
 
-### 2. Install the dependencies
+### 3. Install the dependencies
 
 npm install
 
-### 3. Start the node server
+### 4. Start the node server
 npm start
 
-### 4. Expected Output
+### 5. Expected Output
 
 GET /healthz:
 
@@ -46,3 +49,10 @@ GET /healthz:
 ALL /healthz:
 
 - Returns 405 Method Not Allowed for any HTTP methods other than GET.
+
+### 5. Contributing
+- Fork the repository.
+- Create your feature branch (git checkout -b feature/your-feature).
+- Commit your changes (git commit -m 'Add some feature').
+- Push to the branch (git push origin feature/your-feature).
+- Create a new Pull Request.
