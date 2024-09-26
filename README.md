@@ -35,10 +35,29 @@ cd webapp
 
 npm install
 
-### 4. Start the node server
+### 4: Set Up PostgreSQL Database
+ 
+Make sure PostgreSQL is installed and running on your local machine. Create a database for the project:
+ 
+psql
+CREATE DATABASE webapp_db;
+ 
+### 5: Configure Environment Variables
+ 
+Create a `.env` file in the root of the project with the following environment variables:
+ 
+DB_HOST=localhost
+DB_USER=your_db_username
+DB_PASS=your_db_password
+DB_NAME=webapp_db
+DB_PORT=5432
+PORT=8080
+
+
+### 6. Start the node server
 npm start
 
-### 5. Expected Output
+### 7. Expected Output
 
 GET /healthz:
 
