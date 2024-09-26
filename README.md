@@ -49,10 +49,3 @@ GET /healthz:
 ALL /healthz:
 
 - Returns 405 Method Not Allowed for any HTTP methods other than GET.
-
-### 5. Contributing
-- Fork the repository.
-- Create your feature branch (git checkout -b feature/your-feature).
-- Commit your changes (git commit -m 'Add some feature').
-- Push to the branch (git push origin feature/your-feature).
-- Create a new Pull Request.
