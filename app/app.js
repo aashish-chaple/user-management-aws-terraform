@@ -3,7 +3,7 @@ import cors from 'cors';
 import initializeRoutes from './routes/index.js';
 
 const initializeApp = (app) => {
-    app.use(cors());
+    app.use(cors({ preflightContinue: true }));
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
     initializeRoutes(app)
