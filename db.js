@@ -14,7 +14,7 @@ export const checkDatabaseConnection = async () => {
         console.log('Database connection successful');
         return true;
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        console.log('Unable to connect to the database:', error);
         return false;
     }
 };

@@ -12,13 +12,16 @@ const User = sequelize.define('User', {
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true, 
+        isEmail: true  
+      }
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
       set(value) {
-        // Hash the password before saving it
         if (value) {
           const hash = bcrypt.hashSync(value, 10);
           this.setDataValue('password', hash);
@@ -27,11 +30,25 @@ const User = sequelize.define('User', {
     },
     first_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true, // Ensures that the field is not empty
+        is: {
+          args: /^[A-Za-z]{2,50}$/, // Only allows alphabetic characters
+          msg: 'First name must be alphabetic and contain between 2 and 50 characters.'
+        }
+      }
     },
     last_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notEmpty: true, // Ensures that the field is not empty
+        is: {
+          args: /^[A-Za-z]{2,50}$/, // Only allows alphabetic characters
+          msg: 'Last name must be alphabetic and contain between 2 and 50 characters.'
+        }
+      }
     },
     account_created: {
       type: DataTypes.DATE,

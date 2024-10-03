@@ -1,11 +1,12 @@
 import express from "express";
 import {authenticateUser} from "../middleware/authMiddleware.js";
+import {validateJsonContentType} from "../middleware/validateJsonRoute.js";
 import * as userController from "../controllers/userController.js";
 
 const router = express.Router();
 
 // Public route for user creation
-router.post("/", userController.createUser);
+router.post("/", validateJsonContentType, userController.createUser);
 
 router.head("/self", userController.unsupportedCall);
 

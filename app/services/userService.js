@@ -10,14 +10,25 @@ export const createUser = async ({ email, password, first_name, last_name }) => 
 
 ;export const findUserById = async (id) => {
     return await User.findByPk(id, {
-        attributes: { exclude: ['password'] }, // Exclude password from result
+        attributes: { exclude: ['password'] }, 
     });
 }
 
-export const updateUser = async (id, updateData) => {
-    const user = await User.findByPk(id);
-    if (!user) return null;
-
-    Object.assign(user, updateData); // Merge updateData with user
-    return await user.save();  // Save updated user
+export const updateUser = async (userId, updates) => {
+    try {
+      await User.update(updates, { where: { id: userId } });
+      const updatedUser = await User.findByPk(userId);
+      if (!updatedUser) {
+        return null;
+      }
+      return updatedUser;
+    } catch (error) {
+      if (
+        error instanceof ValidationError ||
+        error instanceof UniqueConstraintError
+      ) {
+        throw error;
+      }
+      throw new DatabaseError("Failed to update user");
+    }
 };
