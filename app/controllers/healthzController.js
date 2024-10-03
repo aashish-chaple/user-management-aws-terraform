@@ -1,13 +1,17 @@
 import { checkDatabaseConnection } from "../../db.js";
 
 export const healthCheck = async (req, res) => {
-    
-    if (req.body && Object.keys(req.body).length > 0) {
+
+    if (req.headers['content-length']){
+        res.status(400).end();
+        return;
+    }
+    if (Object.keys(req.body).length > 0) {
         res.status(400).end();
         return;
     }
 
-    if (req.body && Object.keys(req.query).length > 0) {
+    if (Object.keys(req.query).length > 0) {
         res.status(400).end();
         return;
     }

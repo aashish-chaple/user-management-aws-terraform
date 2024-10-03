@@ -3,6 +3,8 @@ import { healthCheck, nonGetHealthCheck } from '../controllers/healthzController
 
 const router = express.Router();
 
+router.head("/healthz", nonGetHealthCheck);
+
 // Health check route
 router.get('/healthz', healthCheck);
 
