@@ -44,7 +44,7 @@ export const updateUser = async (req, res) => {
       return res.status(400).json({ error: "User not found" });
     }
 
-    return res.status(200).json({
+    return res.status(204).json({
       id: user.id,
       email: user.email,
       first_name: user.first_name,
