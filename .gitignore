@@ -1,3 +1,45 @@
-echo "node_modules/" > .gitignore
+# Node.js dependencies
 node_modules/
+package-lock.json
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+logs/*.log
+
+# Environment variables
 .env
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Coverage directory for testing
+coverage/
+
+# Build directory
+dist/
+build/
+
+# Editor directories and settings
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Debugger files
+*.pid
+*.seed
+*.pid.lock
+
+# Operating system generated files
+*.swp
+.sass-cache/
+*.sublime-project
+*.sublime-workspace
