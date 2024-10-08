@@ -14,9 +14,21 @@ export const checkDatabaseConnection = async () => {
         console.log('Database connection successful');
         return true;
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        console.log('Unable to connect to the database:', error);
         return false;
     }
 };
 
-export default sequelize;
+export const syncDatabase = async () => {
+    try {
+        console.log("Syncing DB");
+        await sequelize.sync({ alter: true });  // Creates tables or replaces them
+        console.log('Database sync successful');  // Move this before the return statement
+        return true;
+    } catch (error) {
+        console.error('Unable to sync the database:', error);
+        return false;
+    }
+};
+
+export {sequelize};
