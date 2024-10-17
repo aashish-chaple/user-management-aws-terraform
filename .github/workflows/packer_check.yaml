@@ -23,10 +23,17 @@ jobs:
           sudo apt-get install packer -y
 
       # Step 3: Run Packer Format
+      - name: Run Packer init
+        id: packer_init
+        run: |
+          if ! packer init .; then
+            echo "Packer template is not initialized correctly."
+            exit 1
+          fi
       - name: Run Packer fmt
         id: packer_fmt
         run: |
-          if ! packer fmt -check packer_template.json; then
+          if ! packer fmt ../packer/. then
             echo "Packer template is not formatted correctly."
             exit 1
           fi
@@ -34,7 +41,7 @@ jobs:
       # Step 4: Run Packer Validate
       - name: Run Packer validate
         run: |
-          if ! packer validate packer_template.json; then
+          if ! packer validate ../packer/. then
             echo "Packer template is not valid."
             exit 1
           fi
