@@ -1,0 +1,33 @@
+name: Packer Checks
+
+# Trigger workflow on pull request creation or updates
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  packer_checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Packer
+      - name: Set up Packer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y packer
+
+      # Step 3: Run Packer Format
+      - name: Run Packer init
+        run: packer init ./packer;
+
+      - name: Run Packer fmt
+        run: packer fmt ./packer
+
+      # Step 4: Run Packer Validate
+      - name: Run Packer validate
+        run: packer validate ./packer

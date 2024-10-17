@@ -1,0 +1,105 @@
+name: Build and Deploy Custom Image
+
+# Trigger workflow on PR merge to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build and Deploy Custom Image
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }} # Use the secret here
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }} # Use the secret here
+        options: >-
+          --health-cmd "pg_isready -U $POSTGRES_USER"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up AWS credentials
+      - name: "Configure AWS Credentials"
+        uses: aws-actions/configure-aws-credentials@v4.0.2
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # Step 3: Setup Node.js and Database to run tests
+      - name: Setup Node.js and Database
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.9.0"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Wait for PostgreSQL to be ready
+        run: until pg_isready -h 127.0.0.1 -p 5432 -U ${{ secrets.DB_USER }}; do sleep 1; done
+
+      - name: Run tests
+        run: npm run test
+
+      # Step 4: Zip the contents of the application
+      - name: Package the application
+        run: |
+          touch .env  
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          mkdir -p build/libs
+          cp -r . build/libs
+          zip -r build/libs/app.zip build/libs/*
+
+      # Step 5: Upload the build artifact for later steps
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-artifact
+          path: build/libs/*.zip # Adjusted to point to the zip file
+
+  build_image:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository again
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Download the previously built artifact
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-artifact
+
+      # Step 3: Create custom image using Packer
+      - name: Build Custom Image with Packer
+        run: |
+            packer build -var "artifact=build/libs/app.zip" \
+            -var "db_name=${{ secrets.DB_NAME}}" \
+            -var "db_host=${{ secrets.DB_HOST}}" \
+            -var "db_user=${{ secrets.DB_USER}}" \
+            -var "db_pass=${{ secrets.DB_PASS}}" \
+            -var "db_port=${{ secrets.PORT}}" \
+            -var "aws_region=${{ secrets.AWS_REGION}}" \
+            -var "source_ami=${{ secrets.SOURCE_AMI}}" \
+            -var "instance_type=${{ secrets.INSTANCE_TYPE}}" \
+            -var "aws_demo_account=${{ secrets.AWS_DEMO_ACCOUNT_ID}}" \
+            packer/.
+        env:
+          PACKER_LOG: 1 # Enable verbose logging if needed
