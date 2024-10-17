@@ -23,14 +23,9 @@ jobs:
 
       # Step 3: Run Packer Format
       - name: Run Packer init
-        id: packer_init
-        run: |
-          if ! packer init ./packer; then
-            echo "Packer template is not initialized correctly."
-            exit 1
-          fi
+        run: packer init ./packer;
+
       - name: Run Packer fmt
-        id: packer_fmt
         run: packer fmt ../packer/.
 
       # Step 4: Run Packer Validate
