@@ -8,7 +8,7 @@ packer {
 }
 
 variable "artifact" {
-  type = string
+  type    = string
   default = ""
 }
 
