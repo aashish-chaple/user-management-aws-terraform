@@ -128,7 +128,7 @@ build {
   }
 
   provisioner "shell" {
-    script = "./packer/scripts/ami_cleanup.sh"
+    script = "./packer/scripts/app_cleanup.sh"
   }
 
 }
