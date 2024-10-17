@@ -3,9 +3,13 @@
 set -e
 
 # Unzip the app into the directory
-sudo -u csye6225 sh -c  "unzip /tmp/app.zip -d /opt/my-app"
+sudo -u csye6225 sh -c  "unzip /tmp/app.zip -d /opt/myApp"
 
-sudo -u csye6225 sh -c  "cp /opt/my-app/webapp/app.service /etc/systemd/system/app.service"
+#debug
+echo "Files in /opt/my-app/webapp:"
+ls -l /opt/my-app/webapp
+
+sudo -u csye6225 sh -c  "cp /opt/myApp/webapp/app.service /etc/systemd/system/app.service"
 
 # Reload systemd to recognize the new service
 sudo systemctl daemon-reload

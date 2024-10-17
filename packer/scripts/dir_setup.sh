@@ -2,7 +2,7 @@
 
 set -e
 
-DIR="/opt/my-app"
+DIR="/opt/myApp"
 
 sudo mkdir -p $DIR
 
@@ -11,4 +11,4 @@ sudo groupadd csye6225
 sudo useradd -r -g csye6225 -s /usr/sbin/nologin csye6225
 
 # Change ownership of the directory to csye6225 user and group
-sudo chown -R csye6225:csye6225 /opt/my-app
+sudo chown -R csye6225:csye6225 /opt/myApp
