@@ -31,16 +31,8 @@ jobs:
           fi
       - name: Run Packer fmt
         id: packer_fmt
-        run: |
-          if ! packer fmt ../packer/. then
-            echo "Packer template is not formatted correctly."
-            exit 1
-          fi
+        run: packer fmt ../packer/.
 
       # Step 4: Run Packer Validate
       - name: Run Packer validate
-        run: |
-          if ! packer validate ../packer/. then
-            echo "Packer template is not valid."
-            exit 1
-          fi
+        run: packer validate ../packer/.
