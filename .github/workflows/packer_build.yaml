@@ -64,15 +64,23 @@ jobs:
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
           mkdir -p build/libs
-          cp -r . build/libs
-          zip -r build/libs/app.zip build/libs/*
+
+      - name: Delete node_modules
+        run: rm -rf node_modules
+
+      - name: Zip Application Code
+        run: |
+          zip -r app.zip . \
+            -x ".git" ".github" "node_modules/*"
+
+          cp -r app.zip build/libs/app.zip
 
       # Step 5: Upload the build artifact for later steps
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: app-artifact
-          path: build/libs/*.zip # Adjusted to point to the zip file
+          path: build/libs/app.zip # Adjusted to point to the zip file
 
   build_image:
     needs: build
