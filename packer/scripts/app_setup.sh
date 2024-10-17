@@ -3,12 +3,9 @@
 set -e
 
 # Unzip the app into the directory
-sudo unzip /tmp/app.zip -d /opt/my-app
+sudo -u csye6225 sh -c  "unzip /tmp/app.zip -d /opt/my-app"
 
-sudo cp /opt/my-app/webapp/app.service /etc/systemd/system/app.service
-
-# Ensure proper ownership of all app files
-sudo chown -R csye6225:csye6225 /opt/my-app
+sudo -u csye6225 sh -c  "cp /opt/my-app/webapp/app.service /etc/systemd/system/app.service"
 
 # Reload systemd to recognize the new service
 sudo systemctl daemon-reload

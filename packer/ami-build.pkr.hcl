@@ -106,6 +106,10 @@ build {
   }
 
   provisioner "shell" {
+    script = "./packer/scripts/app_setup.sh"
+  }
+
+  provisioner "shell" {
     script = "./packer/scripts/app_install.sh"
   }
 
@@ -117,10 +121,6 @@ build {
       "DB_USER=${var.db_user}",
       "DB_PASS=${var.db_pass}"
     ]
-  }
-
-  provisioner "shell" {
-    script = "./packer/scripts/app_setup.sh"
   }
 
 }
