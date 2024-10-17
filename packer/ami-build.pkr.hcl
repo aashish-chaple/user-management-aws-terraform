@@ -127,4 +127,8 @@ build {
     script = "./packer/scripts/service_setup.sh"
   }
 
+  provisioner "shell" {
+    script = "./packer/scripts/ami_cleanup.sh"
+  }
+
 }
