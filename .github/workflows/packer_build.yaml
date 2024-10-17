@@ -75,17 +75,17 @@ jobs:
 
           cp -r app.zip build/libs/app.zip
 
-          - name: Setup Packer
-          uses: hashicorp/setup-packer@v2
-          with:
-            version: "1.10.1"
-  
+      - name: Setup Packer
+        uses: hashicorp/setup-packer@v2
+        with:
+          version: "1.10.1"
+
       - name: Packer Init
         run: packer init ./packer
-  
+
       - name: Packer Format
         run: packer fmt -check ./packer
-  
+
       - name: Packer Validate
         run: packer validate ./packer
 
@@ -114,15 +114,15 @@ jobs:
       # Step 3: Create custom image using Packer
       - name: Build Custom Image with Packer
         run: |
-            packer build -var "artifact=build/libs/app.zip" \
-            -var "db_name=${{ secrets.DB_NAME}}" \
-            -var "db_host=${{ secrets.DB_HOST}}" \
-            -var "db_user=${{ secrets.DB_USER}}" \
-            -var "db_pass=${{ secrets.DB_PASS}}" \
-            -var "aws_region=${{ secrets.AWS_REGION}}" \
-            -var "source_ami=${{ secrets.SOURCE_AMI}}" \
-            -var "instance_type=${{ secrets.INSTANCE_TYPE}}" \
-            -var "aws_demo_account=${{ secrets.AWS_DEMO_ACCOUNT_ID}}" \
-            packer/.
+          packer build -var "artifact=build/libs/app.zip" \
+          -var "db_name=${{ secrets.DB_NAME}}" \
+          -var "db_host=${{ secrets.DB_HOST}}" \
+          -var "db_user=${{ secrets.DB_USER}}" \
+          -var "db_pass=${{ secrets.DB_PASS}}" \
+          -var "aws_region=${{ secrets.AWS_REGION}}" \
+          -var "source_ami=${{ secrets.SOURCE_AMI}}" \
+          -var "instance_type=${{ secrets.INSTANCE_TYPE}}" \
+          -var "aws_demo_account=${{ secrets.AWS_DEMO_ACCOUNT_ID}}" \
+          packer/.
         env:
           PACKER_LOG: 1 # Enable verbose logging if needed
