@@ -105,7 +105,6 @@ jobs:
             -var "db_host=${{ secrets.DB_HOST}}" \
             -var "db_user=${{ secrets.DB_USER}}" \
             -var "db_pass=${{ secrets.DB_PASS}}" \
-            -var "db_port=${{ secrets.PORT}}" \
             -var "aws_region=${{ secrets.AWS_REGION}}" \
             -var "source_ami=${{ secrets.SOURCE_AMI}}" \
             -var "instance_type=${{ secrets.INSTANCE_TYPE}}" \

@@ -3,7 +3,7 @@
 set -e
 
 # Unzip the app into the directory
-sudo unzip /tmp/my-app.zip -d /opt/my-app
+sudo unzip /tmp/app.zip -d /opt/my-app
 
 sudo cp /opt/my-app/webapp/app.service /etc/systemd/system/app.service
 
