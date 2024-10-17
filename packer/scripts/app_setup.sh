@@ -2,13 +2,13 @@
 
 set -ex
 
-sudo mkdir -p /opt/myApp
+sudo mkdir -p /home/csye6225/myApp
 
 # Unzip the app into the directory
-sudo unzip -o /tmp/app.zip -d /opt/myApp
+sudo unzip -o /tmp/app.zip -d /home/csye6225/myApp
 
-sudo chown -R csye6225:csye6225 /opt/myApp
-sudo chmod -R 775 /opt/myApp
+sudo chown -R csye6225:csye6225 /home/csye6225/myApp
+sudo chmod -R 775 /home/csye6225/myApp
 
-cd /opt/myApp 
+cd /home/csye6225/myApp 
 sudo npm install

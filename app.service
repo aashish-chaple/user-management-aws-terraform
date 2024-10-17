@@ -5,9 +5,9 @@ After=network.target
 [Service]
 User=csye6225
 Group=csye6225
-EnvironmentFile=/opt/myApp/webapp/.env
-WorkingDirectory=/opt/myApp
-ExecStart=/usr/bin/npm /opt/myApp/webapp/server.js 
+EnvironmentFile=/home/csye6225/myApp/webapp/.env
+WorkingDirectory=/home/csye6225/myApp
+ExecStart=/usr/bin/npm /home/csye6225/myApp/webapp/server.js 
 Restart=on-failure
 
 [Install]
