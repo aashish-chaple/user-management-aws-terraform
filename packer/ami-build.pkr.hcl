@@ -9,6 +9,7 @@ packer {
 
 variable "artifact" {
   type = string
+  default = ""
 }
 
 variable "aws_region" {
@@ -38,26 +39,28 @@ variable "instance_type" {
 
 variable "db_name" {
   type    = string
+  default = "cloud_db"
 }
 
 variable "db_host" {
   type    = string
+  default = "localhost"
 }
 
 variable "db_user" {
   type    = string
+  default = "myuser"
 }
 
 variable "db_pass" {
+  type      = string
+  default   = "password"
+  sensitive = true
+}
+
+variable "aws_demo_account" {
   type    = string
-}
-
-variable "db_port" {
-  type    = number
-}
-
-variable "aws_demo_account"{
-    type = string
+  default = "123456789012"
 }
 
 source "amazon-ebs" "my-ami" {
@@ -70,7 +73,7 @@ source "amazon-ebs" "my-ami" {
     max_attempts  = 50
   }
 
-  ami_users = [var.aws_demo_account]
+  ami_users     = [var.aws_demo_account]
   instance_type = var.instance_type
   source_ami    = var.source_ami
   ssh_username  = var.ssh_username
@@ -106,7 +109,7 @@ build {
     script = "scripts/app_install.sh"
   }
 
-   # Pass database variables to the DB setup script
+  # Pass database variables to the DB setup script
   provisioner "shell" {
     inline = [
       "chmod +x /tmp/db_setup.sh",
