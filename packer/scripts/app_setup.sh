@@ -1,20 +1,14 @@
 #!/bin/bash
 
-set -e
+set -ex
+
+sudo mkdir -p /home/csye6225/myApp
 
 # Unzip the app into the directory
-sudo unzip /tmp/app.zip -d /opt/my-app
+sudo unzip -o /tmp/app.zip -d /home/csye6225/myApp
 
-sudo cp /opt/my-app/webapp/app.service /etc/systemd/system/app.service
+sudo chown -R csye6225:csye6225 /home/csye6225/myApp
+sudo chmod -R 775 /home/csye6225/myApp
 
-# Ensure proper ownership of all app files
-sudo chown -R csye6225:csye6225 /opt/my-app
-
-# Reload systemd to recognize the new service
-sudo systemctl daemon-reload
-
-# Enable the service to start on boot
-sudo systemctl enable app.service
-
-# Start the service
-sudo systemctl start app.service
+cd /home/csye6225/myApp 
+sudo npm install

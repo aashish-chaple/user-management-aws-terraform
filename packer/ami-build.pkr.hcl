@@ -94,7 +94,7 @@ build {
 
   provisioner "file" {
     source      = var.artifact
-    destination = "/tmp/my-app.zip"
+    destination = "/tmp/app.zip"
   }
 
   provisioner "shell" {
@@ -106,19 +106,29 @@ build {
   }
 
   provisioner "shell" {
+    script = "./packer/scripts/app_setup.sh"
+  }
+
+  provisioner "shell" {
     script = "./packer/scripts/app_install.sh"
   }
 
   # Pass database variables to the DB setup script
   provisioner "shell" {
-    inline = [
-      "chmod +x /tmp/db_setup.sh",
-      "/tmp/db_setup.sh ${var.db_name} ${var.db_user} ${var.db_pass}"
+    script = "./packer/scripts/db_setup.sh"
+    environment_vars = [
+      "DB_NAME=${var.db_name}",
+      "DB_USER=${var.db_user}",
+      "DB_PASS=${var.db_pass}"
     ]
   }
 
   provisioner "shell" {
-    script = "./packer/scripts/app_setup.sh"
+    script = "./packer/scripts/service_setup.sh"
+  }
+
+  provisioner "shell" {
+    script = "./packer/scripts/app_cleanup.sh"
   }
 
 }
