@@ -123,4 +123,8 @@ build {
     ]
   }
 
+  provisioner "shell" {
+    script = "./packer/scripts/service_setup.sh"
+  }
+
 }
