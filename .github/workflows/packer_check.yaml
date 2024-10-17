@@ -26,8 +26,8 @@ jobs:
         run: packer init ./packer;
 
       - name: Run Packer fmt
-        run: packer fmt ../packer/.
+        run: packer fmt ./packer
 
       # Step 4: Run Packer Validate
       - name: Run Packer validate
-        run: packer validate ../packer/.
+        run: packer validate ./packer

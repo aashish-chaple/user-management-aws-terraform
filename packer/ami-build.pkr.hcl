@@ -98,15 +98,15 @@ build {
   }
 
   provisioner "shell" {
-    script = "scripts/os_setup.sh"
+    script = "./packer/scripts/os_setup.sh"
   }
 
   provisioner "shell" {
-    script = "scripts/dir_setup.sh"
+    script = "./packer/scripts/dir_setup.sh"
   }
 
   provisioner "shell" {
-    script = "scripts/app_install.sh"
+    script = "./packer/scripts/app_install.sh"
   }
 
   # Pass database variables to the DB setup script
@@ -118,6 +118,7 @@ build {
   }
 
   provisioner "shell" {
-    script = "scripts/app_setup.sh"
+    script = "./packer/scripts/app_setup.sh"
   }
+
 }
