@@ -75,6 +75,20 @@ jobs:
 
           cp -r app.zip build/libs/app.zip
 
+          - name: Setup Packer
+          uses: hashicorp/setup-packer@v2
+          with:
+            version: "1.10.1"
+  
+      - name: Packer Init
+        run: packer init ./packer
+  
+      - name: Packer Format
+        run: packer fmt -check ./packer
+  
+      - name: Packer Validate
+        run: packer validate ./packer
+
       # Step 5: Upload the build artifact for later steps
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
