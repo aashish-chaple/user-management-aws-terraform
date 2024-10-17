@@ -94,7 +94,7 @@ build {
 
   provisioner "file" {
     source      = var.artifact
-    destination = "/tmp/my-app.zip"
+    destination = "/tmp/app.zip"
   }
 
   provisioner "shell" {
