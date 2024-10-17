@@ -7,7 +7,7 @@ sudo -u csye6225 sh -c  "unzip /tmp/app.zip -d /opt/myApp"
 
 #debug
 echo "Files in /opt/my-app/webapp:"
-ls -l /opt/my-app/webapp
+sudo -u csye6225 sh -c "ls -l /opt/my-app/webapp"
 
 sudo -u csye6225 sh -c  "cp /opt/myApp/webapp/app.service /etc/systemd/system/app.service"
 
