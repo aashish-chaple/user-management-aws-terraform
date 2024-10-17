@@ -18,15 +18,14 @@ jobs:
       # Step 2: Set up Packer
       - name: Set up Packer
         run: |
-          sudo apt-get upgrade
-          sudo apt-get update -y
-          sudo apt-get install packer -y
+          sudo apt-get update
+          sudo apt-get install -y packer
 
       # Step 3: Run Packer Format
       - name: Run Packer init
         id: packer_init
         run: |
-          if ! packer init .; then
+          if ! packer init ./packer; then
             echo "Packer template is not initialized correctly."
             exit 1
           fi
