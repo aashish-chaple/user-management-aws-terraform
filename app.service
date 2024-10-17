@@ -1,0 +1,14 @@
+[Unit]
+Description=My Application Service
+After=network.target
+
+[Service]
+User=csye6225
+Group=csye6225
+EnvironmentFile=/opt
+WorkingDirectory=/opt/my-app
+ExecStart=/usr/bin/npm /opt/my-app/webapp/server.js 
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
