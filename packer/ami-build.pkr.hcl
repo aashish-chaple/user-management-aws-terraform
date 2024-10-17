@@ -24,7 +24,7 @@ variable "source_ami" {
 
 variable "ssh_username" {
   type    = string
-  default = "ubuntu"
+  default = "csye6225"
 }
 
 variable "subnet_id" {
