@@ -2,7 +2,7 @@ name: Build and Deploy Custom Image
 
 # Trigger workflow on PR merge to main branch
 on:
-  push:
+  pull_request:
     branches:
       - main
 
