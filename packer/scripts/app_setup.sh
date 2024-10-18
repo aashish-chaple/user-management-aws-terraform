@@ -19,4 +19,9 @@ sudo chown -R csye6225:csye6225 /home/csye6225/myApp
 sudo chmod -R 775 /home/csye6225/myApp
 
 cd /home/csye6225/myApp 
+
+#debug
+node -v
+npm -v
+
 sudo npm install
