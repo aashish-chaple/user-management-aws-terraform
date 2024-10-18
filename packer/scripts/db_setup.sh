@@ -1,11 +1,17 @@
 #!/bin/bash
 
-DB_NAME=$1
-DB_USER=$2
-DB_PASS=$3
+# Read environment variables
+# DB_NAME="${DB_NAME}"
+# DB_USER="${DB_USER}"
+# DB_PASS="${DB_PASS}"
 
+# Install PostgreSQL
+sudo apt-get update
 sudo apt-get install -y postgresql postgresql-contrib
+
+# Start the PostgreSQL service
 sudo service postgresql start
+
 # Create the database
 sudo -u postgres psql -c "CREATE DATABASE \"$DB_NAME\";"
 
