@@ -2,7 +2,15 @@
 
 set -ex
 
+#debug
+sudo pwd
+sudo ls -l
+
 sudo mkdir -p /home/csye6225/myApp
+
+sudo ls -l /home/csye6225
+
+sudo ls -l /tmp
 
 # Unzip the app into the directory
 sudo unzip -o /tmp/app.zip -d /home/csye6225/myApp
