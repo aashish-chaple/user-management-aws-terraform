@@ -11,5 +11,7 @@ sudo apt-get update
 # Upgrade all installed packages
 sudo apt-get upgrade -y
 
+sudo apt install unzip curl
+
 # Clean up unused package files
 sudo apt-get clean
