@@ -172,6 +172,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
 
+      # Step 4: Zip the contents of the application
+      - name: Package the application
+        run: |
+          touch .env  
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+          mkdir -p build/libs
+
+      - name: Zip Application Code
+        run: |
+            zip -r app.zip . 
+            cp -r app.zip build/libs/app.zip
+
       # Step 3: Setup Node.js and Database to run tests
       - name: Setup Node.js and Database
         uses: actions/setup-node@v4
@@ -187,25 +203,25 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      # Step 4: Zip the contents of the application
-      - name: Package the application
-        run: |
-          touch .env  
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
-          mkdir -p build/libs
+      # # Step 4: Zip the contents of the application
+      # - name: Package the application
+      #   run: |
+      #     touch .env  
+      #     echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+      #     echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+      #     echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+      #     echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+      #     echo "PORT=${{ secrets.PORT }}" >> .env
+      #     mkdir -p build/libs
 
-      - name: Delete node_modules
-        run: rm -rf node_modules
+      # - name: Delete node_modules
+      #   run: rm -rf node_modules
 
-      - name: Zip Application Code
-        run: |
-          zip -r app.zip . \
-            -x ".git" ".github" "node_modules/*"
-          cp -r app.zip build/libs/app.zip
+      # - name: Zip Application Code
+      #   run: |
+      #     zip -r app.zip . \
+      #       -x ".git" ".github" "node_modules/*"
+      #     cp -r app.zip build/libs/app.zip
 
       # Step 5: Setup Packer
       - name: Setup Packer
@@ -222,18 +238,18 @@ jobs:
       - name: Packer Validate
         run: packer validate ./packer
 
-      # Step 6: Upload the build artifact for later steps
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-artifact
-          path: build/libs/app.zip
+      # # Step 6: Upload the build artifact for later steps
+      # - name: Upload build artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: app-artifact
+      #     path: build/libs/app.zip
 
-      # Step 2: Download the previously built artifact
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: app-artifact
+      # # Step 2: Download the previously built artifact
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: app-artifact
 
       # Step 3: Create custom image using Packer
       - name: Build Custom Image with Packer
