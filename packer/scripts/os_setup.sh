@@ -6,12 +6,10 @@ export DEBIAN_FRONTEND=noninteractive
 export CHECKPOINT_DISABLE=1
 
 # Update package list and install necessary packages
-sudo apt-get update
+sudo apt-get update && sudo apt-get install -y unzip curl
 
 # Upgrade all installed packages
 sudo apt-get upgrade -y
-
-sudo apt install unzip curl
 
 # Clean up unused package files
 sudo apt-get clean

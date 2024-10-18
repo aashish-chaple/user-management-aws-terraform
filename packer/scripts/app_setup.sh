@@ -2,26 +2,12 @@
 
 set -ex
 
-#debug
-sudo pwd
-sudo ls -l
-
-sudo mkdir -p /home/csye6225/myApp
-
-sudo ls -l /home/csye6225
-
-sudo ls -l /tmp
-
-# Unzip the app into the directory
-sudo unzip -o /tmp/app.zip -d /home/csye6225/myApp
-
-sudo chown -R csye6225:csye6225 /home/csye6225/myApp
-sudo chmod -R 775 /home/csye6225/myApp
-
-cd /home/csye6225/myApp 
-
-#debug
+curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs npm
+echo 'Node Installed'
 node -v
 npm -v
 
-sudo npm install
+# # Install Node.js and npm
+# curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+# sudo apt-get install -y nodejs
