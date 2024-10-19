@@ -1,5 +1,9 @@
 #!/bin/bash
 
+ls -l /home/csye6225/myApp/
+
+ls -l /home/csye6225/myApp/webapp/
+
 sudo cp /home/csye6225/myApp/webapp/app.service /etc/systemd/system/app.service
 
 sudo chown -R csye6225:csye6225 /etc/systemd/system/app.service
