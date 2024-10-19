@@ -2,7 +2,7 @@
 
 sudo -u csye6225 ls -l /home/csye6225/myApp/
 
-cp /home/csye6225/myApp/app.service /etc/systemd/system/
+sudo cp /home/csye6225/myApp/app.service /etc/systemd/system/
 
 sudo chown -R csye6225:csye6225 /etc/systemd/system/app.service
 # sudo -u csye6225 chmod 750 /home/csye6225/myApp
