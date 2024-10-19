@@ -20,6 +20,8 @@ sudo chmod -R 775 /home/csye6225/myApp
 
 cd /home/csye6225/myApp 
 
+ls -l /home/csye6225/myApp
+
 #debug
 node -v
 npm -v
