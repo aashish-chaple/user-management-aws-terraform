@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ls -l /home/csye6225/myApp/
+sudo -u csye6225 ls -l /home/csye6225/myApp/
 
-ls -l /home/csye6225/myApp/webapp/
+sudo -u csye6225 ls -l /home/csye6225/myApp/webapp/
 
-sudo cp /home/csye6225/myApp/webapp/app.service /etc/systemd/system/app.service
+sudo -u csye6225 cp /home/csye6225/myApp/webapp/app.service /etc/systemd/system/app.service
 
-sudo chown -R csye6225:csye6225 /etc/systemd/system/app.service
-sudo chmod 750 /home/csye6225/myApp
+sudo -u csye6225 chown -R csye6225:csye6225 /etc/systemd/system/app.service
+# sudo -u csye6225 chmod 750 /home/csye6225/myApp
 
 # Reload systemd to recognize the new service
 sudo systemctl daemon-reload
