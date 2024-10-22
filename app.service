@@ -7,7 +7,7 @@ User=csye6225
 Group=csye6225
 EnvironmentFile=/home/csye6225/myApp/.env
 WorkingDirectory=/home/csye6225/myApp
-ExecStart=/usr/bin/npm /home/csye6225/myApp/server.js 
+ExecStart=/usr/bin/npm start
 Restart=on-failure
 
 [Install]
