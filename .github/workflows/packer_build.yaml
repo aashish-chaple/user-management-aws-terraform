@@ -95,9 +95,6 @@
 #         with:
 #           name: app-artifact
 #           path: build/libs/app.zip # Adjusted to point to the zip file
-
-
-
 #     steps:
 #       # Step 1: Check out the repository again
 #       - name: Checkout repository
@@ -168,21 +165,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
 
-      # Step 3: Setup Node.js and Database to run tests
-      - name: Setup Node.js and Database
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.9.0"
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Wait for PostgreSQL to be ready
-        run: until pg_isready -h 127.0.0.1 -p 5432 -U ${{ secrets.DB_USER }}; do sleep 1; done
-
-      - name: Run tests
-        run: npm run test
-
       # Step 4: Zip the contents of the application
       - name: Package the application
         run: |
@@ -194,14 +176,33 @@ jobs:
           echo "PORT=${{ secrets.PORT }}" >> .env
           mkdir -p build/libs
 
-      - name: Delete node_modules
-        run: rm -rf node_modules
-
       - name: Zip Application Code
         run: |
-          zip -r app.zip . \
-            -x ".git" ".github" "node_modules/*"
-          cp -r app.zip build/libs/app.zip
+            zip -r app.zip . 
+            cp -r app.zip build/libs/app.zip
+
+      # Step 3: Setup Node.js and Database to run tests
+      - name: Setup Node.js and Database
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.9.0"
+
+      - name: Install dependencies
+        run: npm install
+
+
+      - name: Wait for PostgreSQL to be ready
+        run: until pg_isready -h 127.0.0.1 -p 5432 -U ${{ secrets.DB_USER }}; do sleep 1; done
+
+      - name: Run tests
+        run: npm run test
+
+      # # Step 4: Zip the contents of the application
+      # - name: Zip Application Code
+      #   run: |
+      #     zip -r app.zip . \
+      #       -x ".git" ".github" "node_modules/*"
+      #     cp -r app.zip build/libs/app.zip
 
       # Step 5: Setup Packer
       - name: Setup Packer
@@ -218,18 +219,18 @@ jobs:
       - name: Packer Validate
         run: packer validate ./packer
 
-      # Step 6: Upload the build artifact for later steps
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-artifact
-          path: build/libs/app.zip
+      # # Step 6: Upload the build artifact for later steps
+      # - name: Upload build artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: app-artifact
+      #     path: build/libs/app.zip
 
-      # Step 2: Download the previously built artifact
-      - name: Download build artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: app-artifact
+      # # Step 2: Download the previously built artifact
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v3
+      #   with:
+      #     name: app-artifact
 
       # Step 3: Create custom image using Packer
       - name: Build Custom Image with Packer
