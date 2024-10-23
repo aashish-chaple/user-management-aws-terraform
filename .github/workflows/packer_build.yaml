@@ -95,9 +95,6 @@
 #         with:
 #           name: app-artifact
 #           path: build/libs/app.zip # Adjusted to point to the zip file
-
-
-
 #     steps:
 #       # Step 1: Check out the repository again
 #       - name: Checkout repository
@@ -129,15 +126,11 @@
 name: Build and Deploy Custom Image
 
 # Trigger workflow on PR merge to main branch
-# on:
-#     pull_request:
-#       branches:
-#         - main
-#       types: [closed]  
 on:
-  pull_request:
-    branches:
-      - main
+    pull_request:
+      branches:
+        - main
+      types: [closed]  
 
 jobs:
   build:
@@ -197,6 +190,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+
       - name: Wait for PostgreSQL to be ready
         run: until pg_isready -h 127.0.0.1 -p 5432 -U ${{ secrets.DB_USER }}; do sleep 1; done
 
@@ -204,19 +198,6 @@ jobs:
         run: npm run test
 
       # # Step 4: Zip the contents of the application
-      # - name: Package the application
-      #   run: |
-      #     touch .env  
-      #     echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-      #     echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-      #     echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
-      #     echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-      #     echo "PORT=${{ secrets.PORT }}" >> .env
-      #     mkdir -p build/libs
-
-      # - name: Delete node_modules
-      #   run: rm -rf node_modules
-
       # - name: Zip Application Code
       #   run: |
       #     zip -r app.zip . \
