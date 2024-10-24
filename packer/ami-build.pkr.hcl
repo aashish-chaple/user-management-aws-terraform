@@ -37,27 +37,6 @@ variable "instance_type" {
   default = "t2.small"
 }
 
-variable "db_name" {
-  type    = string
-  default = "cloud_db"
-}
-
-# variable "db_host" {
-#   type    = string
-#   default = "localhost"
-# }
-
-variable "db_user" {
-  type    = string
-  default = "myuser"
-}
-
-variable "db_pass" {
-  type      = string
-  default   = "password"
-  sensitive = true
-}
-
 variable "aws_demo_account" {
   type    = string
   default = "123456789012"
@@ -112,16 +91,6 @@ build {
   provisioner "shell" {
     script = "./packer/scripts/app_install.sh"
   }
-
-  # Pass database variables to the DB setup script
-  // provisioner "shell" {
-  //   script = "./packer/scripts/db_setup.sh"
-  //   environment_vars = [
-  //     "DB_NAME=${var.db_name}",
-  //     "DB_USER=${var.db_user}",
-  //     "DB_PASS=${var.db_pass}"
-  //   ]
-  // }
 
   provisioner "shell" {
     script = "./packer/scripts/service_setup.sh"
