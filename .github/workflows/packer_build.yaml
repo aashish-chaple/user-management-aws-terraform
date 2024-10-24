@@ -41,21 +41,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
 
       # Step 3: Zip the contents of the application
-      # - name: Package the application
-      #   run: |
-      #     touch .env  
-      #     echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-      #     echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-      #     echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
-      #     echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-      #     echo "PORT=${{ secrets.PORT }}" >> .env
-      #     mkdir -p build/libs
-
       - name: Zip Application Code
         run: |
-            mkdir -p build/libs
-            zip -r app.zip . 
-            cp -r app.zip build/libs/app.zip
+          mkdir -p build/libs
+          zip -r app.zip . 
+          cp -r app.zip build/libs/app.zip
+
+      - name: Package the application
+        run: |
+          touch .env  
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
 
       # Step 4: Setup Node.js and Database to run tests
       - name: Setup Node.js and Database
