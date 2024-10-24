@@ -114,14 +114,14 @@ build {
   }
 
   # Pass database variables to the DB setup script
-  provisioner "shell" {
-    script = "./packer/scripts/db_setup.sh"
-    environment_vars = [
-      "DB_NAME=${var.db_name}",
-      "DB_USER=${var.db_user}",
-      "DB_PASS=${var.db_pass}"
-    ]
-  }
+  // provisioner "shell" {
+  //   script = "./packer/scripts/db_setup.sh"
+  //   environment_vars = [
+  //     "DB_NAME=${var.db_name}",
+  //     "DB_USER=${var.db_user}",
+  //     "DB_PASS=${var.db_pass}"
+  //   ]
+  // }
 
   provisioner "shell" {
     script = "./packer/scripts/service_setup.sh"
