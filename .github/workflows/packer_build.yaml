@@ -1,15 +1,11 @@
 name: Build and Deploy Custom Image
 
 # Trigger workflow on PR merge to main branch
-# on:
-#     pull_request:
-#       branches:
-#         - main
-#       types: [closed]  
 on:
-  push:
-    branches:
-      - main
+    pull_request:
+      branches:
+        - main
+      types: [closed]  
 
 jobs:
   build:
