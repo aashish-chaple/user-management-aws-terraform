@@ -53,6 +53,7 @@ jobs:
 
       - name: Zip Application Code
         run: |
+            mkdir -p build/libs
             zip -r app.zip . 
             cp -r app.zip build/libs/app.zip
 
