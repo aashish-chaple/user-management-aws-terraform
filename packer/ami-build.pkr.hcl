@@ -42,10 +42,10 @@ variable "db_name" {
   default = "cloud_db"
 }
 
-variable "db_host" {
-  type    = string
-  default = "localhost"
-}
+# variable "db_host" {
+#   type    = string
+#   default = "localhost"
+# }
 
 variable "db_user" {
   type    = string
