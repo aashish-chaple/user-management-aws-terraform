@@ -1,7 +1,7 @@
-import { UniqueConstraintError, ValidationError } from "sequelize";
+import { UniqueConstraintError} from "sequelize";
 import * as imageService from "../services/imageService.js"; // Ensure you create this service
-const AWS = require("aws-sdk");
-
+import AWS from "aws-sdk";
+// import {s3} from "../config/s3Config.js";
 const s3 = new AWS.S3();
 
 export const createImage = async (req, res) => {
