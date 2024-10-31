@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { checkDatabaseConnection } from '../db.js';
+import { checkDatabaseConnection } from './config/db.js';
 import initializeRoutes from './routes/index.js';
 
 const configureApp = () => {
