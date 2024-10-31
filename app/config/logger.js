@@ -1,23 +1,4 @@
 import winston from 'winston';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// const __dirname = path.resolve();
-
-const logDir = '/var/log/';
-
-// Create the logs directory if it doesn't exist
-if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir, { recursive: true }); // Use recursive: true to create nested directories if needed
-}
-
-// const logDir = path.join(__dirname, '../logs');
-if (!fs.existsSync(logDir)) {
-    fs.mkdirSync(logDir);
-}
 
 const logger = winston.createLogger({
     level: 'info',
@@ -27,7 +8,7 @@ const logger = winston.createLogger({
     ),
     transports: [
         new winston.transports.Console(),
-        new winston.transports.File({ filename: path.join(logDir, 'webapp.log') }),
+        new winston.transports.File({ filename: 'webapp.log' }),
     ],
 });
 
