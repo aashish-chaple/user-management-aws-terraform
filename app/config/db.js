@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-import { logMetric } from '../utils/metricsLogger.js';
 
 dotenv.config();
 
@@ -8,19 +7,6 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
     host: process.env.DB_HOST,
     dialect: 'postgres',
 });
-
-const executeQueryWithTiming = async (queryFunc, metricName) => {
-    const startTime = Date.now();
-    try {
-        const result = await queryFunc(); 
-        const duration = Date.now() - startTime; 
-        await logMetric(metricName, duration, 'Milliseconds');
-        return result;
-    } catch (error) {
-        console.error('Error executing query:', error);
-        throw error;
-    }
-};
 
 export const checkDatabaseConnection = async () => {
     try {
@@ -45,4 +31,4 @@ export const syncDatabase = async () => {
     }
 };
 
-export {sequelize, executeQueryWithTiming};
+export {sequelize};
