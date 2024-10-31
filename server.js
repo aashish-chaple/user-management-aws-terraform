@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { checkDatabaseConnection, syncDatabase } from './db.js';  // Import the database functions
+import { checkDatabaseConnection, syncDatabase } from './app/config/db.js';  // Import the database functions
 import configureApp from './app/app.js'; // Import the app configuration
 
 dotenv.config();
